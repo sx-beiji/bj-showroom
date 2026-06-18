@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>来访登记</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+            background: #3b82f6;
+            color: #1e293b;
+            min-height: 100vh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 40px 16px 40px;
+        }
+        .container {
+            max-width: 480px;
+            width: 100%;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* ===== 头部 ===== */
+        .header {
+            text-align: center;
+            padding: 24px 0 20px;
+            margin-bottom: 20px;
+        }
+        .header .title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 4px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        /* ===== 表单卡片 ===== */
+        .card {
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+            padding: 28px 22px 32px;
+        }
+        .form-group {
+            margin-bottom: 18px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 5px;
+        }
+        .form-group label .required {
+            color: #ef4444;
+            margin-left: 2px;
+        }
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 15px;
+            background: #f8fafc;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
+            color: #1e293b;
+        }
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+            background: #ffffff;
+        }
+        .form-group input::placeholder {
+            color: #cbd5e1;
+        }
+
+        /* 错误状态 */
+        .form-group.error input,
+        .form-group.error select {
+            border-color: #ef4444;
+            box-shadow: 0 0 0 3px rgba(239,68,68,0.15);
+        }
+        .field-error {
+            color: #ef4444;
+            font-size: 13px;
+            margin-top: 4px;
+            padding-left: 2px;
+            display: none;
+        }
+        .field-error.show {
+            display: block;
+        }
+
+        #plateInput {
+            cursor: pointer;
+            background: #f8fafc;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background: #3b82f6;
+            color: #ffffff;
+            border: none;
+            border-radius: 12px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+            margin-top: 6px;
+            letter-spacing: 2px;
+        }
+        .btn-submit:hover {
+            background: #2563eb;
+        }
+        .btn-submit:active {
+            transform: scale(0.97);
+        }
+
+        /* ===== 成功页面（初始隐藏） ===== */
+        .success-page {
+            display: none;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+            padding: 48px 22px 40px;
+            text-align: center;
+            min-height: 400px;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .success-page.active {
+            display: flex;
+        }
+
+        .btn-back {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: none;
+            border: none;
+            font-size: 16px;
+            color: #94a3b8;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-weight: 500;
+        }
+        .btn-back:hover {
+            background: #f1f5f9;
+        }
+        .btn-back:active {
+            background: #e2e8f0;
+        }
+
+        .success-icon {
+            width: 96px;
+            height: 96px;
+            border-radius: 50%;
+            background: #10b981;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px auto 24px;
+            flex-shrink: 0;
+            animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            transform: scale(0);
+        }
+        .success-icon svg {
+            width: 52px;
+            height: 52px;
+            fill: none;
+            stroke: #ffffff;
+            stroke-width: 4;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .success-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 8px;
+        }
+        .success-sub {
+            font-size: 15px;
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+
+        /* ===== 自定义车牌键盘 ===== */
+        .plate-keyboard-overlay {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%) translateY(100%);
+            width: 100%;
+            max-width: 480px;
+            background: #ffffff;
+            border-radius: 20px 20px 0 0;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
+            z-index: 1000;
+            transition: transform 0.3s ease;
+            padding: 16px 12px 20px;
+        }
+        .plate-keyboard-overlay.active {
+            transform: translateX(-50%) translateY(0);
+        }
+        .keyboard-row {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin-bottom: 6px;
+        }
+        .key-btn {
+            flex: 1;
+            padding: 10px 0;
+            background: #f1f5f9;
+            border: none;
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: 500;
+            color: #1e293b;
+            cursor: pointer;
+            text-align: center;
+            transition: background 0.1s;
+            min-width: 0;
+            user-select: none;
+            touch-action: manipulation;
+        }
+        .key-btn:active {
+            background: #cbd5e1;
+        }
+        .key-btn.special {
+            background: #e2e8f0;
+            font-size: 14px;
+            flex: 1.2;
+        }
+        .key-btn.confirm {
+            background: #3b82f6;
+            color: #ffffff;
+        }
+        .key-btn.confirm:active {
+            background: #2563eb;
+        }
+        .key-btn.del {
+            background: #fca5a5;
+            color: #7f1d1d;
+        }
+        .key-btn.del:active {
+            background: #f87171;
+        }
+        .keyboard-close {
+            text-align: right;
+            padding: 4px 8px 12px;
+            font-size: 20px;
+            color: #94a3b8;
+            cursor: pointer;
+            background: none;
+            border: none;
+            width: 100%;
+            display: block;
+        }
+        .keyboard-close:hover {
+            color: #475569;
+        }
+
+        @media (max-width: 420px) {
+            .key-btn {
+                font-size: 15px;
+                padding: 8px 0;
+            }
+            .key-btn.special {
+                font-size: 12px;
+            }
+            .success-icon {
+                width: 76px;
+                height: 76px;
+            }
+            .success-icon svg {
+                width: 40px;
+                height: 40px;
+            }
+            .success-title {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ===== 头部 ===== -->
+    <div class="header">
+        <div class="title">📋 来访登记预约</div>
+    </div>
+
+    <!-- ===== 表单卡片 ===== -->
+    <div class="card" id="formCard">
+        <form id="registerForm" autocomplete="off" novalidate>
+            <!-- 姓名 -->
+            <div class="form-group" id="nameGroup">
+                <label>姓名 <span class="required">*</span></label>
+                <input type="text" id="name" placeholder="请输入您的姓名" />
+                <div class="field-error" id="nameError">请填写姓名</div>
+            </div>
+
+            <!-- 手机号 -->
+            <div class="form-group" id="phoneGroup">
+                <label>手机号 <span class="required">*</span></label>
+                <input type="tel" id="phone" placeholder="请输入手机号" />
+                <div class="field-error" id="phoneError">请填写正确的手机号</div>
+            </div>
+
+            <!-- 车牌号 -->
+            <div class="form-group">
+                <label>车牌号</label>
+                <input type="text" id="plateInput" placeholder="点击输入车牌" readonly />
+            </div>
+
+            <!-- 来访事由 -->
+            <div class="form-group" id="purposeGroup">
+                <label>来访事由 <span class="required">*</span></label>
+                <select id="purpose">
+                    <option value="">请选择来访事由</option>
+                    <option value="档案制作">📂 档案制作</option>
+                    <option value="业务洽谈">🤝 业务洽谈</option>
+                    <option value="面试">💼 面试</option>
+                    <option value="送货">📦 送货</option>
+                    <option value="维修">🔧 设备维修</option>
+                    <option value="其他">其他</option>
+                </select>
+                <div class="field-error" id="purposeError">请选择来访事由</div>
+            </div>
+
+            <!-- 单位（非必填） -->
+            <div class="form-group">
+                <label>单位</label>
+                <input type="text" id="company" placeholder="请输入您的单位名称（选填）" />
+            </div>
+
+            <button type="submit" class="btn-submit">✅ 提交登记</button>
+        </form>
+    </div>
+
+    <!-- ===== 成功页面 ===== -->
+    <div class="success-page" id="successPage">
+        <button class="btn-back" id="backBtn">
+            ‹ 返回
+        </button>
+        <div class="success-icon" id="successIcon">
+            <svg viewBox="0 0 24 24">
+                <polyline points="20 6 9 17 4 12" />
+            </svg>
+        </div>
+        <div class="success-title">提交成功，感谢登记！</div>
+        <div class="success-sub">您的来访信息已记录，请准时到达</div>
+    </div>
+
+</div>
+
+<!-- ===== 自定义车牌键盘 ===== -->
+<div class="plate-keyboard-overlay" id="plateKeyboard">
+    <button class="keyboard-close" id="keyboardClose">✕ 收起</button>
+    <div id="keyboardContent"></div>
+</div>
+
+<script>
+    (function() {
+        'use strict';
+
+        // ============================================================
+        // ⚠️ 重要：将下面的地址替换为你的 NATAPP 公网域名
+        // 例如：const API_BASE = 'https://xxxxx.natappfree.cc';
+        // ============================================================
+        const API_BASE = 'http://we53a65e.natappfree.cc';   // 替换成你的 NATAPP 域名
+
+        // ---------- DOM ----------
+        const formCard = document.getElementById('formCard');
+        const successPage = document.getElementById('successPage');
+        const backBtn = document.getElementById('backBtn');
+
+        const plateInput = document.getElementById('plateInput');
+        const keyboardOverlay = document.getElementById('plateKeyboard');
+        const keyboardContent = document.getElementById('keyboardContent');
+        const keyboardClose = document.getElementById('keyboardClose');
+        const form = document.getElementById('registerForm');
+        const nameInput = document.getElementById('name');
+        const phoneInput = document.getElementById('phone');
+        const purposeSelect = document.getElementById('purpose');
+        const companyInput = document.getElementById('company');
+
+        const nameGroup = document.getElementById('nameGroup');
+        const phoneGroup = document.getElementById('phoneGroup');
+        const purposeGroup = document.getElementById('purposeGroup');
+        const nameError = document.getElementById('nameError');
+        const phoneError = document.getElementById('phoneError');
+        const purposeError = document.getElementById('purposeError');
+
+        // ---------- 状态 ----------
+        let currentMode = 'province';
+        let plateValue = '';
+        let isKeyboardOpen = false;
+        let isKeyboardInternalClick = false;
+
+        // ---------- 数据 ----------
+        const provinces = ['京','津','冀','晋','蒙','辽','吉','黑','沪','苏','浙','皖','闽','赣','鲁','豫','鄂','湘','粤','桂','琼','渝','川','贵','云','藏','陕','甘','青','宁','新','挂','学','警'];
+        const alnumKeys = [
+            ['1','2','3','4','5','6','7','8','9','0'],
+            ['Q','W','E','R','T','Y','U','I','O','P'],
+            ['A','S','D','F','G','H','J','K','L'],
+            ['Z','X','C','V','B','N','M','港','澳']
+        ];
+
+        // ---------- 存储（本地备份） ----------
+        const STORAGE_KEY = 'visit_records';
+        function getRecords() {
+            try { const data = localStorage.getItem(STORAGE_KEY); return data ? JSON.parse(data) : []; } catch(e) { return []; }
+        }
+        function saveRecords(records) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
+        }
+        function resetForm() {
+            form.reset();
+            purposeSelect.value = '';
+            plateValue = '';
+            plateInput.value = '';
+            clearAllErrors();
+        }
+        function isValidPhone(phone) { return /^1\d{10}$/.test(phone.trim()); }
+
+        // ---------- 错误提示 ----------
+        function clearAllErrors() {
+            [nameGroup, phoneGroup, purposeGroup].forEach(g => g.classList.remove('error'));
+            [nameError, phoneError, purposeError].forEach(e => e.classList.remove('show'));
+        }
+
+        function showFieldError(group, errorEl) {
+            clearAllErrors();
+            group.classList.add('error');
+            errorEl.classList.add('show');
+            const input = group.querySelector('input, select');
+            if (input) input.focus();
+        }
+
+        nameInput.addEventListener('input', function() {
+            nameGroup.classList.remove('error');
+            nameError.classList.remove('show');
+        });
+        phoneInput.addEventListener('input', function() {
+            phoneGroup.classList.remove('error');
+            phoneError.classList.remove('show');
+        });
+        purposeSelect.addEventListener('change', function() {
+            purposeGroup.classList.remove('error');
+            purposeError.classList.remove('show');
+        });
+
+        // ---------- 页面切换 ----------
+        function showSuccessPage() {
+            formCard.style.display = 'none';
+            successPage.classList.add('active');
+            const icon = document.getElementById('successIcon');
+            icon.style.animation = 'none';
+            void icon.offsetHeight;
+            icon.style.animation = 'popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards';
+        }
+
+        function showFormPage() {
+            successPage.classList.remove('active');
+            formCard.style.display = 'block';
+            resetForm();
+            plateValue = '';
+            plateInput.value = '';
+            if (isKeyboardOpen) {
+                closeKeyboard();
+            }
+        }
+
+        backBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            showFormPage();
+        });
+
+        // ---------- 键盘渲染 ----------
+        function renderKeyboard() {
+            let html = '';
+            if (currentMode === 'province') {
+                const rows = [];
+                for (let i = 0; i < provinces.length; i += 9) {
+                    rows.push(provinces.slice(i, i + 9));
+                }
+                rows.forEach(row => {
+                    html += '<div class="keyboard-row">';
+                    row.forEach(p => {
+                        html += `<button class="key-btn" data-value="${p}">${p}</button>`;
+                    });
+                    html += '</div>';
+                });
+                html += `<div class="keyboard-row">
+                            <button class="key-btn confirm" data-action="confirm">确认</button>
+                            <button class="key-btn del" data-action="del">删除</button>
+                        </div>`;
+            } else {
+                alnumKeys.forEach(row => {
+                    html += '<div class="keyboard-row">';
+                    row.forEach(key => {
+                        html += `<button class="key-btn" data-value="${key}">${key}</button>`;
+                    });
+                    html += '</div>';
+                });
+                html += `<div class="keyboard-row">
+                            <button class="key-btn special" data-action="switch">切换</button>
+                            <button class="key-btn confirm" data-action="confirm">确认</button>
+                            <button class="key-btn del" data-action="del">删除</button>
+                        </div>`;
+            }
+            keyboardContent.innerHTML = html;
+
+            keyboardContent.querySelectorAll('.key-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    isKeyboardInternalClick = true;
+
+                    const val = this.dataset.value;
+                    const action = this.dataset.action;
+
+                    if (action === 'confirm') {
+                        closeKeyboard();
+                        isKeyboardInternalClick = false;
+                        return;
+                    }
+                    if (action === 'del') {
+                        if (plateValue.length > 0) {
+                            plateValue = plateValue.slice(0, -1);
+                            updatePlateInput();
+                        }
+                        isKeyboardInternalClick = false;
+                        return;
+                    }
+                    if (action === 'switch') {
+                        currentMode = 'province';
+                        renderKeyboard();
+                        isKeyboardInternalClick = false;
+                        return;
+                    }
+                    if (val) {
+                        plateValue += val;
+                        updatePlateInput();
+                        if (currentMode === 'province' && provinces.includes(val)) {
+                            currentMode = 'alnum';
+                            renderKeyboard();
+                        }
+                    }
+                    setTimeout(() => { isKeyboardInternalClick = false; }, 50);
+                });
+                btn.addEventListener('touchstart', function(e) {
+                    e.stopPropagation();
+                }, { passive: true });
+            });
+        }
+
+        function updatePlateInput() {
+            plateInput.value = plateValue;
+        }
+
+        // ---------- 键盘显示/隐藏 ----------
+        function openKeyboard() {
+            const currentVal = plateInput.value;
+            plateValue = currentVal || '';
+            currentMode = 'province';
+            renderKeyboard();
+            keyboardOverlay.classList.add('active');
+            isKeyboardOpen = true;
+        }
+
+        function closeKeyboard() {
+            keyboardOverlay.classList.remove('active');
+            isKeyboardOpen = false;
+            plateInput.value = plateValue;
+            plateInput.blur();
+        }
+
+        // ---------- 事件绑定 ----------
+        plateInput.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (isKeyboardInternalClick) return;
+            if (isKeyboardOpen) {
+                closeKeyboard();
+                setTimeout(() => openKeyboard(), 200);
+            } else {
+                openKeyboard();
+            }
+        });
+
+        keyboardClose.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            isKeyboardInternalClick = true;
+            closeKeyboard();
+            setTimeout(() => { isKeyboardInternalClick = false; }, 100);
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!isKeyboardOpen) return;
+            const target = e.target;
+            if (keyboardOverlay.contains(target)) return;
+            if (target === plateInput) return;
+            isKeyboardInternalClick = true;
+            closeKeyboard();
+            setTimeout(() => { isKeyboardInternalClick = false; }, 100);
+        });
+
+        const otherInputs = [nameInput, phoneInput, purposeSelect, companyInput];
+        otherInputs.forEach(function(input) {
+            input.addEventListener('focus', function() {
+                if (isKeyboardOpen) {
+                    isKeyboardInternalClick = true;
+                    closeKeyboard();
+                    setTimeout(() => { isKeyboardInternalClick = false; }, 100);
+                }
+            });
+            input.addEventListener('click', function() {
+                if (isKeyboardOpen) {
+                    isKeyboardInternalClick = true;
+                    closeKeyboard();
+                    setTimeout(() => { isKeyboardInternalClick = false; }, 100);
+                }
+            });
+        });
+
+        // ---------- 表单提交 ----------
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name = nameInput.value.trim();
+            const phone = phoneInput.value.trim();
+            const plate = plateValue.trim();
+            const purpose = purposeSelect.value;
+            const company = companyInput.value.trim();
+
+            // 校验
+            if (!name) {
+                showFieldError(nameGroup, nameError);
+                return;
+            }
+            if (!phone || !isValidPhone(phone)) {
+                showFieldError(phoneGroup, phoneError);
+                return;
+            }
+            if (!purpose) {
+                showFieldError(purposeGroup, purposeError);
+                return;
+            }
+
+            // ----- 保存到 localStorage（备份） -----
+            const now = new Date();
+            const record = {
+                id: Date.now() + '_' + Math.random().toString(36).slice(2,6),
+                name, phone, plate, purpose, company,
+                createTime: now.toLocaleString('zh-CN', { hour12: false }),
+                timestamp: now.getTime()
+            };
+            const records = getRecords();
+            records.push(record);
+            saveRecords(records);
+
+            // ----- 发送到 NATAPP (WinForm 服务) -----
+                fetch(API_BASE, {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json'
+						},
+						body: JSON.stringify({
+							"姓名": name,
+							"手机号": phone,
+							"车牌号": plate,
+							"来访事由": purpose,
+							"单位": company
+						})
+					})
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        console.log('✅ 数据保存成功:', data);
+                        showSuccessPage();
+                    } else {
+                        alert('提交失败: ' + (data.message || '未知错误'));
+                    }
+                })
+                .catch(error => {
+                    console.error('❌ 提交失败:', error);
+                    alert('提交失败，请稍后重试。错误: ' + error.message);
+                });
+        });
+
+        // ---------- 控制台导出（调试） ----------
+        window.__exportRecords = function() {
+            const data = getRecords();
+            if (data.length === 0) { alert('暂无数据'); return; }
+            const jsonStr = JSON.stringify(data, null, 2);
+            console.log(jsonStr);
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(jsonStr).then(function() {
+                    alert('✅ 数据已复制到剪贴板');
+                }).catch(function() {
+                    alert('请手动复制控制台数据');
+                });
+            } else {
+                alert('请手动复制控制台数据');
+            }
+            return data;
+        };
+        console.log('💡 输入 __exportRecords() 可导出本地备份数据');
+    })();
+</script>
+
+</body>
+</html>
