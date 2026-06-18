@@ -395,7 +395,7 @@
         // ⚠️ 重要：将下面的地址替换为你的 NATAPP 公网域名
         // 例如：const API_BASE = 'https://xxxxx.natappfree.cc';
         // ============================================================
-        const API_BASE = 'http://we53a65e.natappfree.cc';   // 替换成你的 NATAPP 域名
+        const API_BASE = 'https://theatrics-buffed-applause.ngrok-free.dev';   // 替换成你的 NATAPP 域名
 
         // ---------- DOM ----------
         const formCard = document.getElementById('formCard');
@@ -693,7 +693,8 @@
                 fetch(API_BASE, {
 						method: 'POST',
 						headers: {
-							'Content-Type': 'application/json'
+							'Content-Type': 'application/json',
+							'ngrok-skip-browser-warning': 'true'
 						},
 						body: JSON.stringify({
 							"姓名": name,
