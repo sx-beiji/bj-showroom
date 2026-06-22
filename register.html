@@ -19,7 +19,7 @@
             display: flex;
             align-items: flex-start;
             justify-content: center;
-            padding: 20px 12px 30px; /* 上下内边距略减 */
+            padding: 20px 12px 30px;
         }
         .container {
             max-width: 480px;
@@ -28,14 +28,14 @@
             position: relative;
         }
 
-        /* ===== 头部（压缩高度） ===== */
+        /* ===== 头部（压缩） ===== */
         .header {
             text-align: center;
-            padding: 12px 0 8px;  /* 原 24px 0 20px */
-            margin-bottom: 12px;   /* 原 20px */
+            padding: 12px 0 8px;
+            margin-bottom: 12px;
         }
         .header .title {
-            font-size: 22px;       /* 原 28px */
+            font-size: 22px;
             font-weight: 700;
             color: #ffffff;
             letter-spacing: 3px;
@@ -47,17 +47,17 @@
             background: #ffffff;
             border-radius: 20px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-            padding: 20px 16px 24px; /* 原 28px 22px 32px */
+            padding: 20px 16px 24px;
         }
         .form-group {
-            margin-bottom: 12px;    /* 原 18px */
+            margin-bottom: 12px;
         }
         .form-group label {
             display: block;
             font-size: 14px;
             font-weight: 600;
             color: #334155;
-            margin-bottom: 4px;     /* 原 5px */
+            margin-bottom: 4px;
         }
         .form-group label .required {
             color: #ef4444;
@@ -66,7 +66,7 @@
         .form-group input,
         .form-group select {
             width: 100%;
-            padding: 10px 12px;     /* 原 12px 14px */
+            padding: 10px 12px;
             border: 1px solid #e2e8f0;
             border-radius: 10px;
             font-size: 15px;
@@ -96,7 +96,7 @@
         /* 其他输入框（条件显示） */
         .other-input {
             display: none;
-            margin-top: 6px;        /* 原 8px */
+            margin-top: 6px;
             width: 100%;
             padding: 10px 12px;
             border: 1px solid #e2e8f0;
@@ -140,16 +140,16 @@
 
         .btn-submit {
             width: 100%;
-            padding: 12px;          /* 原 14px */
+            padding: 12px;
             background: #3b82f6;
             color: #ffffff;
             border: none;
             border-radius: 12px;
-            font-size: 16px;        /* 原 17px */
+            font-size: 16px;
             font-weight: 600;
             cursor: pointer;
             transition: background 0.2s, transform 0.1s;
-            margin-top: 4px;        /* 原 6px */
+            margin-top: 4px;
             letter-spacing: 2px;
         }
         .btn-submit:hover {
@@ -171,7 +171,7 @@
             font-weight: 500;
             cursor: pointer;
             transition: background 0.2s, color 0.2s;
-            margin-top: 8px;        /* 原 10px */
+            margin-top: 8px;
         }
         .btn-clear:hover {
             background: #fee2e2;
@@ -188,9 +188,9 @@
             background: #ffffff;
             border-radius: 20px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-            padding: 40px 22px 36px; /* 稍减 */
+            padding: 40px 22px 36px;
             text-align: center;
-            min-height: 300px;       /* 原 400px，让内容更紧凑 */
+            min-height: 300px;
             flex-direction: column;
             align-items: center;
             justify-content: center;
@@ -225,20 +225,20 @@
         }
 
         .success-icon {
-            width: 80px;            /* 原 96px */
+            width: 80px;
             height: 80px;
             border-radius: 50%;
             background: #10b981;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 16px auto 20px; /* 原 20px auto 24px */
+            margin: 16px auto 20px;
             flex-shrink: 0;
             animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
             transform: scale(0);
         }
         .success-icon svg {
-            width: 44px;            /* 原 52px */
+            width: 44px;
             height: 44px;
             fill: none;
             stroke: #ffffff;
@@ -259,13 +259,13 @@
         }
 
         .success-title {
-            font-size: 22px;        /* 原 24px */
+            font-size: 22px;
             font-weight: 700;
             color: #1e293b;
-            margin-bottom: 6px;     /* 原 8px */
+            margin-bottom: 6px;
         }
         .success-sub {
-            font-size: 14px;        /* 原 15px */
+            font-size: 14px;
             color: #94a3b8;
             line-height: 1.5;
         }
@@ -283,7 +283,7 @@
             box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
             z-index: 1000;
             transition: transform 0.3s ease;
-            padding: 14px 12px 18px; /* 略减 */
+            padding: 14px 12px 18px;
         }
         .plate-keyboard-overlay.active {
             transform: translateX(-50%) translateY(0);
@@ -296,11 +296,11 @@
         }
         .key-btn {
             flex: 1;
-            padding: 9px 0;         /* 原 10px 0 */
+            padding: 9px 0;
             background: #f1f5f9;
             border: none;
             border-radius: 6px;
-            font-size: 17px;        /* 原 18px */
+            font-size: 17px;
             font-weight: 500;
             color: #1e293b;
             cursor: pointer;
@@ -772,7 +772,7 @@
                 showFormPage();
             });
 
-            // ---------- 键盘渲染 ----------
+            // ---------- 键盘渲染（已互换确认/删除位置） ----------
             function renderKeyboard() {
                 let html = '';
                 if (currentMode === 'province') {
@@ -787,9 +787,10 @@
                         });
                         html += '</div>';
                     });
+                    // ✅ 互换位置：删除在左，确认在右
                     html += `<div class="keyboard-row">
-                                <button class="key-btn confirm" data-action="confirm">确认</button>
                                 <button class="key-btn del" data-action="del">删除</button>
+                                <button class="key-btn confirm" data-action="confirm">确认</button>
                             </div>`;
                 } else {
                     alnumKeys.forEach(row => {
@@ -799,10 +800,11 @@
                         });
                         html += '</div>';
                     });
+                    // ✅ 互换位置：切换、删除、确认（删除在中间，确认在最右）
                     html += `<div class="keyboard-row">
                                 <button class="key-btn special" data-action="switch">切换</button>
-                                <button class="key-btn confirm" data-action="confirm">确认</button>
                                 <button class="key-btn del" data-action="del">删除</button>
+                                <button class="key-btn confirm" data-action="confirm">确认</button>
                             </div>`;
                 }
                 keyboardContent.innerHTML = html;
