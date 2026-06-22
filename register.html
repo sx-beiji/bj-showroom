@@ -19,7 +19,7 @@
             display: flex;
             align-items: flex-start;
             justify-content: center;
-            padding: 40px 16px 40px;
+            padding: 20px 12px 30px; /* 上下内边距略减 */
         }
         .container {
             max-width: 480px;
@@ -28,36 +28,36 @@
             position: relative;
         }
 
-        /* ===== 头部 ===== */
+        /* ===== 头部（压缩高度） ===== */
         .header {
             text-align: center;
-            padding: 24px 0 20px;
-            margin-bottom: 20px;
+            padding: 12px 0 8px;  /* 原 24px 0 20px */
+            margin-bottom: 12px;   /* 原 20px */
         }
         .header .title {
-            font-size: 28px;
+            font-size: 22px;       /* 原 28px */
             font-weight: 700;
             color: #ffffff;
-            letter-spacing: 4px;
+            letter-spacing: 3px;
             text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
         }
 
-        /* ===== 表单卡片 ===== */
+        /* ===== 表单卡片（内边距压缩） ===== */
         .card {
             background: #ffffff;
             border-radius: 20px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-            padding: 28px 22px 32px;
+            padding: 20px 16px 24px; /* 原 28px 22px 32px */
         }
         .form-group {
-            margin-bottom: 18px;
+            margin-bottom: 12px;    /* 原 18px */
         }
         .form-group label {
             display: block;
             font-size: 14px;
             font-weight: 600;
             color: #334155;
-            margin-bottom: 5px;
+            margin-bottom: 4px;     /* 原 5px */
         }
         .form-group label .required {
             color: #ef4444;
@@ -66,7 +66,7 @@
         .form-group input,
         .form-group select {
             width: 100%;
-            padding: 12px 14px;
+            padding: 10px 12px;     /* 原 12px 14px */
             border: 1px solid #e2e8f0;
             border-radius: 10px;
             font-size: 15px;
@@ -96,9 +96,9 @@
         /* 其他输入框（条件显示） */
         .other-input {
             display: none;
-            margin-top: 8px;
+            margin-top: 6px;        /* 原 8px */
             width: 100%;
-            padding: 12px 14px;
+            padding: 10px 12px;
             border: 1px solid #e2e8f0;
             border-radius: 10px;
             font-size: 15px;
@@ -140,16 +140,16 @@
 
         .btn-submit {
             width: 100%;
-            padding: 14px;
+            padding: 12px;          /* 原 14px */
             background: #3b82f6;
             color: #ffffff;
             border: none;
             border-radius: 12px;
-            font-size: 17px;
+            font-size: 16px;        /* 原 17px */
             font-weight: 600;
             cursor: pointer;
             transition: background 0.2s, transform 0.1s;
-            margin-top: 6px;
+            margin-top: 4px;        /* 原 6px */
             letter-spacing: 2px;
         }
         .btn-submit:hover {
@@ -159,19 +159,19 @@
             transform: scale(0.97);
         }
 
-        /* 清除记录按钮（新增） */
+        /* 清除记录按钮 */
         .btn-clear {
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             background: #f1f5f9;
             color: #64748b;
             border: 1px solid #e2e8f0;
             border-radius: 12px;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 500;
             cursor: pointer;
             transition: background 0.2s, color 0.2s;
-            margin-top: 10px;
+            margin-top: 8px;        /* 原 10px */
         }
         .btn-clear:hover {
             background: #fee2e2;
@@ -188,9 +188,9 @@
             background: #ffffff;
             border-radius: 20px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-            padding: 48px 22px 40px;
+            padding: 40px 22px 36px; /* 稍减 */
             text-align: center;
-            min-height: 400px;
+            min-height: 300px;       /* 原 400px，让内容更紧凑 */
             flex-direction: column;
             align-items: center;
             justify-content: center;
@@ -202,14 +202,14 @@
 
         .btn-back {
             position: absolute;
-            top: 16px;
+            top: 12px;
             left: 16px;
             background: none;
             border: none;
-            font-size: 16px;
+            font-size: 15px;
             color: #94a3b8;
             cursor: pointer;
-            padding: 8px 12px;
+            padding: 6px 10px;
             border-radius: 8px;
             transition: background 0.2s;
             display: flex;
@@ -225,21 +225,21 @@
         }
 
         .success-icon {
-            width: 96px;
-            height: 96px;
+            width: 80px;            /* 原 96px */
+            height: 80px;
             border-radius: 50%;
             background: #10b981;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 20px auto 24px;
+            margin: 16px auto 20px; /* 原 20px auto 24px */
             flex-shrink: 0;
             animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
             transform: scale(0);
         }
         .success-icon svg {
-            width: 52px;
-            height: 52px;
+            width: 44px;            /* 原 52px */
+            height: 44px;
             fill: none;
             stroke: #ffffff;
             stroke-width: 4;
@@ -259,15 +259,15 @@
         }
 
         .success-title {
-            font-size: 24px;
+            font-size: 22px;        /* 原 24px */
             font-weight: 700;
             color: #1e293b;
-            margin-bottom: 8px;
+            margin-bottom: 6px;     /* 原 8px */
         }
         .success-sub {
-            font-size: 15px;
+            font-size: 14px;        /* 原 15px */
             color: #94a3b8;
-            line-height: 1.6;
+            line-height: 1.5;
         }
 
         /* ===== 自定义车牌键盘 ===== */
@@ -283,7 +283,7 @@
             box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
             z-index: 1000;
             transition: transform 0.3s ease;
-            padding: 16px 12px 20px;
+            padding: 14px 12px 18px; /* 略减 */
         }
         .plate-keyboard-overlay.active {
             transform: translateX(-50%) translateY(0);
@@ -296,11 +296,11 @@
         }
         .key-btn {
             flex: 1;
-            padding: 10px 0;
+            padding: 9px 0;         /* 原 10px 0 */
             background: #f1f5f9;
             border: none;
             border-radius: 6px;
-            font-size: 18px;
+            font-size: 17px;        /* 原 18px */
             font-weight: 500;
             color: #1e293b;
             cursor: pointer;
@@ -315,7 +315,7 @@
         }
         .key-btn.special {
             background: #e2e8f0;
-            font-size: 14px;
+            font-size: 13px;
             flex: 1.2;
         }
         .key-btn.confirm {
@@ -334,8 +334,8 @@
         }
         .keyboard-close {
             text-align: right;
-            padding: 4px 8px 12px;
-            font-size: 20px;
+            padding: 2px 8px 10px;
+            font-size: 18px;
             color: #94a3b8;
             cursor: pointer;
             background: none;
@@ -349,21 +349,24 @@
 
         @media (max-width: 420px) {
             .key-btn {
-                font-size: 15px;
-                padding: 8px 0;
+                font-size: 14px;
+                padding: 7px 0;
             }
             .key-btn.special {
-                font-size: 12px;
+                font-size: 11px;
             }
             .success-icon {
-                width: 76px;
-                height: 76px;
+                width: 68px;
+                height: 68px;
             }
             .success-icon svg {
-                width: 40px;
-                height: 40px;
+                width: 36px;
+                height: 36px;
             }
             .success-title {
+                font-size: 18px;
+            }
+            .header .title {
                 font-size: 20px;
             }
         }
@@ -373,7 +376,7 @@
 
     <div class="container">
 
-        <!-- ===== 头部 ===== -->
+        <!-- ===== 头部（压缩） ===== -->
         <div class="header">
             <div class="title">📋 来访登记预约</div>
         </div>
@@ -440,9 +443,7 @@
                 </div>
 
                 <button type="submit" class="btn-submit">✅ 提交登记</button>
-
-                <!-- 🆕 清除记录按钮（用于多人共用手机时切换登记人） -->
-                <button type="button" class="btn-clear" id="clearDraftBtn">新登记</button>
+                <button type="button" class="btn-clear" id="clearDraftBtn">🗑 清除记录 / 新登记</button>
             </form>
         </div>
 
@@ -624,7 +625,6 @@
                 try {
                     localStorage.removeItem(DRAFT_KEY);
                 } catch (e) { /* ignore */ }
-                // 重置表单
                 form.reset();
                 purposeSelect.value = '';
                 contactSelect.value = '';
@@ -635,15 +635,11 @@
                 plateValue = '';
                 plateInput.value = '';
                 clearAllErrors();
-                // 重新加载草稿（此时已被清空，所以是空白状态）
                 loadDraft();
-                // 确保其他输入框状态正确
                 toggleOtherInputs();
-                // 同步车牌
                 updatePlateInput();
             }
 
-            // 清除按钮事件
             clearDraftBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 if (confirm('确定要清除当前填写的所有内容吗？这将为您开始一份全新的登记。')) {
@@ -1005,7 +1001,6 @@
                     .then(data => {
                         if (data.status === 'success') {
                             console.log('✅ 数据保存成功:', data);
-                            // 提交成功后保存为草稿（方便下次自动填入）
                             saveFinalDraft(name, phone, plate, purpose, contact, company);
                             showSuccessPage();
                         } else {
